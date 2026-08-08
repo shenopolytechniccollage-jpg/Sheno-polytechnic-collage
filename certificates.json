@@ -30,6 +30,16 @@
       "issue_date": "08 August 2026",
       "issued_at": "2026-08-08T09:12:34+00:00Z",
       "status": "valid"
+    },
+    {
+      "id": "SPC-GEN-2026-0002",
+      "student_name": "ALEM DEBELE",
+      "department": "GARMENT",
+      "program_level": "Level VI",
+      "trade_track": "Garment Making & Design",
+      "issue_date": "AUGUST 8, 2026",
+      "issued_at": "2026-08-08T19:00:00+00:00Z",
+      "status": "valid"
     }
   ]
 }
