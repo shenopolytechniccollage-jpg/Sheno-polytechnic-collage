@@ -35,7 +35,7 @@
   }
   .wrap{ width:100%; max-width:560px; }
   .brand{ display:flex; align-items:center; gap:14px; margin-bottom:34px; }
-  .brand img{ width:52px; height:52px; border-radius:50%; border:2px solid var(--red); }
+  .brand img{ width:68px; height:68px; border-radius:50%; border:2px solid var(--red); }
   .brand-text{ line-height:1.25; }
   .brand-text .name{ font-family:'Fraunces',serif; font-weight:600; font-size:16px; letter-spacing:0.02em; }
   .brand-text .sub{ font-size:12px; color:var(--ink-soft); letter-spacing:0.06em; text-transform:uppercase; }
@@ -130,6 +130,9 @@
   .hint a{ color:var(--red-deep); }
 
   footer{ text-align:center; margin-top:28px; font-size:12px; color:var(--ink-soft); }
+  .dev-credit{ display:flex; align-items:center; justify-content:center; gap:6px; margin-top:10px; opacity:0.8; }
+  .dev-credit img{ height:14px; width:auto; }
+  .dev-credit span{ font-size:11px; color:var(--ink-soft); letter-spacing:0.02em; }
 
   @media (max-width:420px){
     .card{ padding:28px 22px; }
@@ -165,7 +168,14 @@
     <div id="resultState" class="result" style="display:none;"></div>
   </div>
 
-  <footer>Shano Polytechnic College · Est. 2000 E.C.</footer>
+  <footer>
+    Shano Polytechnic College · Est. 2000 E.C.
+    <div class="dev-credit">
+      <span>Built by</span>
+      <img src="dagdev.png" alt="Dag Dev">
+      <span>· dagdev.io</span>
+    </div>
+  </footer>
 </div>
 
 <script>
