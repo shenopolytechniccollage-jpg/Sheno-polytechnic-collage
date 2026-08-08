@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Verification — Shano Polytechnic College</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#211b1b;
+    --ink-soft:#5a4f4f;
+    --red:#a41c24;
+    --red-deep:#7a1117;
+    --cream:#f7f1e2;
+    --panel:#fffbf2;
+    --line:#e7dcc4;
+    --green:#2f6b3f;
+    --amber:#8a5a12;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    background-image:
+      radial-gradient(circle at 10% 8%, rgba(164,28,36,0.05), transparent 40%),
+      radial-gradient(circle at 90% 92%, rgba(164,28,36,0.05), transparent 40%);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:48px 20px;
+  }
+  .wrap{ width:100%; max-width:560px; }
+  .brand{ display:flex; align-items:center; gap:14px; margin-bottom:34px; }
+  .brand img{ width:52px; height:52px; border-radius:50%; border:2px solid var(--red); }
+  .brand-text{ line-height:1.25; }
+  .brand-text .name{ font-family:'Fraunces',serif; font-weight:600; font-size:16px; letter-spacing:0.02em; }
+  .brand-text .sub{ font-size:12px; color:var(--ink-soft); letter-spacing:0.06em; text-transform:uppercase; }
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:40px 36px;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute; inset:10px;
+    border:1px solid var(--line);
+    pointer-events:none;
+  }
+
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:26px;
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  p.lead{ color:var(--ink-soft); margin:0 0 28px; font-size:15px; line-height:1.5; }
+
+  /* --- lookup form --- */
+  .lookup{ display:flex; gap:10px; }
+  .lookup input{
+    flex:1;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:14px;
+    padding:13px 14px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    background:#fff;
+    color:var(--ink);
+    letter-spacing:0.02em;
+  }
+  .lookup input:focus{ outline:2px solid var(--red); outline-offset:1px; }
+  .lookup button{
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:0 22px;
+    border:none;
+    border-radius:3px;
+    background:var(--ink);
+    color:var(--cream);
+    cursor:pointer;
+  }
+  .lookup button:hover{ background:var(--red-deep); }
+
+  /* --- result states --- */
+  .result{ margin-top:8px; }
+  .status-row{ display:flex; align-items:center; gap:12px; margin-bottom:22px; }
+  .seal-stamp{
+    width:54px; height:54px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    animation: stamp-in 420ms cubic-bezier(.2,1.4,.4,1);
+  }
+  @keyframes stamp-in{
+    0%{ transform:scale(2.2) rotate(-18deg); opacity:0; }
+    100%{ transform:scale(1) rotate(-8deg); opacity:1; }
+  }
+  .seal-stamp.valid{ background:var(--green); }
+  .seal-stamp.revoked{ background:var(--amber); }
+  .seal-stamp.notfound{ background:var(--ink-soft); }
+  .seal-stamp svg{ width:28px; height:28px; }
+
+  .status-text h2{ font-family:'Fraunces',serif; font-size:19px; margin:0; font-weight:600; }
+  .status-text .sub{ font-size:13px; color:var(--ink-soft); margin-top:2px; }
+
+  .detail-grid{
+    border-top:1px solid var(--line);
+    margin-top:6px;
+    padding-top:22px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px 20px;
+  }
+  .detail-grid .full{ grid-column:1 / -1; }
+  .detail-grid dt{ font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-soft); margin-bottom:4px; }
+  .detail-grid dd{ margin:0; font-size:15px; font-weight:500; }
+  .detail-grid dd.mono{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500; color:var(--red-deep); }
+  .detail-grid dd.name{ font-family:'Fraunces',serif; font-size:19px; font-weight:600; }
+
+  .hint{ font-size:13px; color:var(--ink-soft); margin-top:26px; line-height:1.5; }
+  .hint a{ color:var(--red-deep); }
+
+  footer{ text-align:center; margin-top:28px; font-size:12px; color:var(--ink-soft); }
+
+  @media (max-width:420px){
+    .card{ padding:28px 22px; }
+    .detail-grid{ grid-template-columns:1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .seal-stamp{ animation:none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <img src="seal.png" alt="Shano Polytechnic College seal">
+    <div class="brand-text">
+      <div class="name">Shano Polytechnic College</div>
+      <div class="sub">Certificate Verification</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="searchState">
+      <h1>Verify a certificate</h1>
+      <p class="lead">Scan the QR code printed on a certificate, or enter its ID below to confirm it was genuinely issued by Shano Polytechnic College.</p>
+      <div class="lookup">
+        <input id="idInput" type="text" placeholder="e.g. SPC-ELE-2026-0001" autocapitalize="characters">
+        <button onclick="lookupFromInput()">Verify</button>
+      </div>
+    </div>
+
+    <div id="resultState" class="result" style="display:none;"></div>
+  </div>
+
+  <footer>Shano Polytechnic College · Est. 2000 E.C.</footer>
+</div>
+
+<script>
+  const ICONS = {
+    valid: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>',
+    revoked: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="8" x2="12" y2="13"></line><line x1="12" y1="16.5" x2="12" y2="16.5"></line><circle cx="12" cy="12" r="9"></circle></svg>',
+    notfound: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line><circle cx="12" cy="12" r="9"></circle></svg>',
+  };
+
+  async function loadDB(){
+    const res = await fetch('certificates.json', {cache:"no-store"});
+    const data = await res.json();
+    return data.certificates || [];
+  }
+
+  function renderResult(kind, cert, queriedId){
+    const box = document.getElementById('resultState');
+    document.getElementById('searchState').style.display = 'none';
+    box.style.display = 'block';
+
+    if(kind === 'valid' || kind === 'revoked'){
+      const isValid = kind === 'valid';
+      box.innerHTML = `
+        <div class="status-row">
+          <div class="seal-stamp ${kind}">${ICONS[kind]}</div>
+          <div class="status-text">
+            <h2>${isValid ? 'Certificate is valid' : 'Certificate has been revoked'}</h2>
+            <div class="sub">${isValid ? 'Issued by Shano Polytechnic College' : (cert.revoke_reason || 'This certificate is no longer valid.')}</div>
+          </div>
+        </div>
+        <dl class="detail-grid">
+          <div class="full">
+            <dt>Student name</dt>
+            <dd class="name">${escapeHtml(cert.student_name)}</dd>
+          </div>
+          <div>
+            <dt>Department</dt>
+            <dd>${escapeHtml(cert.department)}</dd>
+          </div>
+          <div>
+            <dt>Level / Program</dt>
+            <dd>${escapeHtml(cert.program_level)}</dd>
+          </div>
+          <div class="full">
+            <dt>Trade track</dt>
+            <dd>${escapeHtml(cert.trade_track)}</dd>
+          </div>
+          <div>
+            <dt>Issue date</dt>
+            <dd>${escapeHtml(cert.issue_date)}</dd>
+          </div>
+          <div>
+            <dt>Certificate ID</dt>
+            <dd class="mono">${escapeHtml(cert.id)}</dd>
+          </div>
+        </dl>
+        <p class="hint">Verifying a different certificate? <a href="javascript:resetSearch()">Check another ID</a>.</p>
+      `;
+    } else {
+      box.innerHTML = `
+        <div class="status-row">
+          <div class="seal-stamp notfound">${ICONS.notfound}</div>
+          <div class="status-text">
+            <h2>No certificate found</h2>
+            <div class="sub">No record matches ID “${escapeHtml(queriedId)}”.</div>
+          </div>
+        </div>
+        <p class="hint">Double check the ID printed under the QR code on the certificate. If you believe this is an error, contact the registrar's office at Shano Polytechnic College directly. <a href="javascript:resetSearch()">Try another ID</a>.</p>
+      `;
+    }
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function resetSearch(){
+    document.getElementById('resultState').style.display = 'none';
+    document.getElementById('searchState').style.display = 'block';
+    document.getElementById('idInput').value = '';
+    document.getElementById('idInput').focus();
+    history.replaceState(null, '', location.pathname);
+  }
+
+  async function verifyId(id){
+    const certs = await loadDB();
+    const cert = certs.find(c => c.id.toUpperCase() === id.toUpperCase().trim());
+    if(!cert){ renderResult('notfound', null, id); return; }
+    renderResult(cert.status === 'revoked' ? 'revoked' : 'valid', cert, id);
+  }
+
+  function lookupFromInput(){
+    const id = document.getElementById('idInput').value.trim();
+    if(!id) return;
+    history.replaceState(null, '', '?id=' + encodeURIComponent(id));
+    verifyId(id);
+  }
+
+  document.getElementById('idInput').addEventListener('keydown', e => {
+    if(e.key === 'Enter') lookupFromInput();
+  });
+
+  // auto-verify if a certificate ID is already in the URL (i.e. from a QR scan)
+  const params = new URLSearchParams(location.search);
+  const urlId = params.get('id');
+  if(urlId){ verifyId(urlId); }
+</script>
+</body>
+</html>
