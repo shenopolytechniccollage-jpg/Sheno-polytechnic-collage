@@ -1,34 +1,13 @@
 {
   "certificates": [
     {
-      "id": "SPC-ELE-2026-0001",
-      "student_name": "Hana Girma",
-      "department": "Electronics",
-      "program_level": "Level II",
-      "trade_track": "Electronics Servicing",
-      "issue_date": "08 August 2026",
-      "issued_at": "2026-08-08T09:12:30+00:00Z",
-      "status": "valid"
-    },
-    {
-      "id": "SPC-ELE-2026-0002",
-      "student_name": "Robel Kassa",
-      "department": "Electronics",
-      "program_level": "Level II",
-      "trade_track": "Electronics Servicing",
-      "issue_date": "08 August 2026",
-      "issued_at": "2026-08-08T09:12:34+00:00Z",
-      "status": "revoked",
-      "revoke_reason": "Issued in error - duplicate record"
-    },
-    {
-      "id": "SPC-CON-2026-0001",
-      "student_name": "Almaz Tadesse",
-      "department": "Construction",
-      "program_level": "Level I",
-      "trade_track": "Construction Technology",
-      "issue_date": "08 August 2026",
-      "issued_at": "2026-08-08T09:12:34+00:00Z",
+      "id": "SPC-ICT-2026-0001",
+      "student_name": "ALEM DEBELE",
+      "department": "ICT",
+      "program_level": "Level IV",
+      "trade_track": "Information & Communication\nTechnology",
+      "issue_date": "AUGUST 9, 2026",
+      "issued_at": "2026-08-09T07:53:08+00:00Z",
       "status": "valid"
     }
   ]
