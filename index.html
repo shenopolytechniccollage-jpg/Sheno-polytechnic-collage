@@ -31,14 +31,23 @@
     display:flex;
     align-items:flex-start;
     justify-content:center;
-    padding:48px 20px;
+    padding:56px 20px 68px;
   }
+  .flag-ribbon{ position:fixed; left:0; right:0; height:16px; z-index:50; display:flex; flex-direction:column; }
+  .flag-ribbon span{ flex:1; }
+  .flag-ribbon.top{ top:0; }
+  .flag-ribbon.bottom{ bottom:0; }
+  .flag-ribbon .r{ background:#e01010; }
+  .flag-ribbon .w{ background:#ffffff; border-top:1px solid #eee; border-bottom:1px solid #eee; }
+  .flag-ribbon .k{ background:#141414; }
+  .flag-ribbon .g{ background:#036831; }
   .wrap{ width:100%; max-width:560px; }
   .brand{ display:flex; align-items:center; gap:14px; margin-bottom:34px; }
   .brand img{ width:68px; height:68px; border-radius:50%; border:2px solid var(--red); }
   .brand-text{ line-height:1.25; }
   .brand-text .name{ font-family:'Fraunces',serif; font-weight:600; font-size:16px; letter-spacing:0.02em; }
   .brand-text .sub{ font-size:12px; color:var(--ink-soft); letter-spacing:0.06em; text-transform:uppercase; }
+  .odaa-icon{ margin-left:auto; flex-shrink:0; }
 
   .card{
     background:var(--panel);
@@ -129,6 +138,23 @@
   .hint{ font-size:13px; color:var(--ink-soft); margin-top:26px; line-height:1.5; }
   .hint a{ color:var(--red-deep); }
 
+  .module-section{ margin-top:26px; padding-top:22px; border-top:1px solid var(--line); }
+  .module-section h3{ font-family:'Fraunces',serif; font-size:15px; margin:0 0 4px; font-weight:600; }
+  .gpa-chip{
+    display:inline-block; margin-left:8px; font-family:'IBM Plex Mono',monospace;
+    font-size:12px; color:var(--red-deep); border:1px solid var(--red-deep);
+    border-radius:20px; padding:2px 10px; vertical-align:middle;
+  }
+  table.modules{ width:100%; border-collapse:collapse; margin-top:14px; font-size:12.5px; }
+  table.modules th{
+    text-align:left; font-family:'Inter',sans-serif; font-weight:600; font-size:10.5px;
+    text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-soft);
+    padding:6px 8px; border-bottom:1px solid var(--line);
+  }
+  table.modules td{ padding:8px; border-bottom:1px solid var(--line); }
+  table.modules td.code{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); }
+  table.modules tr:last-child td{ border-bottom:none; }
+
   footer{ text-align:center; margin-top:28px; font-size:12px; color:var(--ink-soft); }
   .dev-credit{ display:flex; align-items:center; justify-content:center; gap:8px; margin-top:12px; opacity:0.85; }
   .dev-credit img{ height:14px; width:auto; }
@@ -154,6 +180,8 @@
 </style>
 </head>
 <body>
+<div class="flag-ribbon top"><span class="r"></span><span class="w"></span><span class="k"></span><span class="g"></span></div>
+<div class="flag-ribbon bottom"><span class="r"></span><span class="w"></span><span class="k"></span><span class="g"></span></div>
 <div class="wrap">
 
   <div class="brand">
@@ -162,6 +190,11 @@
       <div class="name">Sheno Polytechnic College</div>
       <div class="sub">Certificate Verification</div>
     </div>
+    <svg class="odaa-icon" viewBox="0 0 64 64" width="30" height="30" aria-label="Odaa tree">
+      <circle cx="32" cy="24" r="17" fill="#036831"/>
+      <path d="M27 38 L24 58 L28 58 L31 40 Z" fill="#9c9e69"/>
+      <path d="M37 38 L40 58 L36 58 L33 40 Z" fill="#9c9e69"/>
+    </svg>
   </div>
 
   <div class="card">
@@ -246,6 +279,7 @@
             <dd class="mono">${escapeHtml(cert.id)}</dd>
           </div>
         </dl>
+        ${renderModules(cert)}
         <p class="hint">Verifying a different certificate? <a href="javascript:resetSearch()">Check another ID</a>.</p>
       `;
     } else {
@@ -264,6 +298,28 @@
 
   function escapeHtml(s){
     return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function renderModules(cert){
+    if(!cert.modules || !cert.modules.length) return '';
+    const rows = cert.modules.map(m => `
+      <tr>
+        <td class="code">${escapeHtml(m.code || '')}</td>
+        <td>${escapeHtml(m.unit || m.competence || '')}</td>
+        <td>${escapeHtml(m.hours ?? '')}</td>
+        <td>${escapeHtml(m.assessment != null ? m.assessment + '%' : '')}</td>
+        <td>${escapeHtml(m.grade_letter || '')}</td>
+        <td>${escapeHtml(m.grade_point ?? '')}</td>
+      </tr>`).join('');
+    const gpaChip = cert.gpa != null ? `<span class="gpa-chip">GPA ${escapeHtml(cert.gpa)}</span>` : '';
+    return `
+      <div class="module-section">
+        <h3>Module-by-module record ${gpaChip}</h3>
+        <table class="modules">
+          <tr><th>Code</th><th>Unit of Competence</th><th>Hrs</th><th>Result</th><th>Grade</th><th>Pt</th></tr>
+          ${rows}
+        </table>
+      </div>`;
   }
 
   function resetSearch(){
