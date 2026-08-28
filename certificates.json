@@ -9,6 +9,60 @@
       "issue_date": "Electronics",
       "issued_at": "2026-08-28T09:55:28+00:00Z",
       "status": "valid"
+    },
+    {
+      "id": "SPC-MOD-2026-0001",
+      "student_name": "Dagim Aklilu Tadese",
+      "department": "Electronics",
+      "program_level": "Short-Term Training",
+      "trade_track": "Short-Term",
+      "issue_date": "30 Augest,2026",
+      "issued_at": "2026-08-28T10:29:05+00:00Z",
+      "status": "valid",
+      "start_date": "18 Augest,2026",
+      "gpa": "3.14",
+      "modules": [
+        {
+          "code": "EIS EES2 M01 0623",
+          "unit": "Testing Electrical/Electronics Components and measurement",
+          "hours": 20,
+          "assessment": 95,
+          "grade_letter": "A",
+          "grade_point": 4.0
+        },
+        {
+          "code": "EIS EES2 M02 0623",
+          "unit": "Constructing and Repairing Electric Mitad and Stove",
+          "hours": 55,
+          "assessment": 93,
+          "grade_letter": "A",
+          "grade_point": 4.0
+        },
+        {
+          "code": "EIS EES2 M01 0623",
+          "unit": "Testing Electrical/Electronics Components and measurement",
+          "hours": 60,
+          "assessment": 83,
+          "grade_letter": "B",
+          "grade_point": 3.0
+        },
+        {
+          "code": "EIS EES2 M01 0623",
+          "unit": "Testing Electrical/Electronics Components and measurement",
+          "hours": 23,
+          "assessment": 75,
+          "grade_letter": "B-",
+          "grade_point": 2.5
+        },
+        {
+          "code": "EIS EES2 M01 0623",
+          "unit": "Testing Electrical/Electronics Components and measurement",
+          "hours": 100,
+          "assessment": 64,
+          "grade_letter": "D",
+          "grade_point": 2.0
+        }
+      ]
     }
   ]
 }
