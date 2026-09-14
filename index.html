@@ -8,30 +8,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#211b1b;
-    --ink-soft:#5a4f4f;
+    --ink:#1a1a1a;
+    --ink-soft:#5f5f5f;
     --red:#a41c24;
     --red-deep:#7a1117;
-    --cream:#f7f1e2;
-    --panel:#fffbf2;
-    --line:#e7dcc4;
+    --cream:#ffffff;
+    --panel:#ffffff;
+    --line:#e6e6e6;
     --green:#2f6b3f;
     --amber:#8a5a12;
   }
   *{box-sizing:border-box;}
   body{
     margin:0;
-    background:var(--cream);
-    background-image:
-      radial-gradient(circle at 10% 8%, rgba(164,28,36,0.05), transparent 40%),
-      radial-gradient(circle at 90% 92%, rgba(164,28,36,0.05), transparent 40%);
+    background:#fcfcfc;
     color:var(--ink);
     font-family:'Inter',sans-serif;
     min-height:100vh;
     display:flex;
     align-items:flex-start;
     justify-content:center;
-    padding:56px 20px 68px;
+    padding:64px 20px 76px;
   }
   .flag-ribbon{ position:fixed; left:0; right:0; height:16px; z-index:50; display:flex; flex-direction:column; }
   .flag-ribbon span{ flex:1; }
@@ -52,16 +49,10 @@
   .card{
     background:var(--panel);
     border:1px solid var(--line);
-    border-radius:4px;
-    padding:40px 36px;
+    border-radius:10px;
+    padding:44px 40px;
     position:relative;
-    overflow:hidden;
-  }
-  .card::before{
-    content:"";
-    position:absolute; inset:10px;
-    border:1px solid var(--line);
-    pointer-events:none;
+    box-shadow:0 1px 3px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06);
   }
 
   h1{
@@ -81,7 +72,7 @@
     font-size:14px;
     padding:13px 14px;
     border:1px solid var(--line);
-    border-radius:3px;
+    border-radius:6px;
     background:#fff;
     color:var(--ink);
     letter-spacing:0.02em;
@@ -93,7 +84,7 @@
     font-size:14px;
     padding:0 22px;
     border:none;
-    border-radius:3px;
+    border-radius:6px;
     background:var(--ink);
     color:var(--cream);
     cursor:pointer;
@@ -134,6 +125,8 @@
   .detail-grid dd{ margin:0; font-size:15px; font-weight:500; }
   .detail-grid dd.mono{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500; color:var(--red-deep); }
   .detail-grid dd.name{ font-family:'Fraunces',serif; font-size:19px; font-weight:600; }
+  .name-row{ display:flex; align-items:center; gap:14px; }
+  .student-photo{ width:56px; height:68px; object-fit:cover; border-radius:6px; border:1px solid var(--line); flex-shrink:0; }
 
   .hint{ font-size:13px; color:var(--ink-soft); margin-top:26px; line-height:1.5; }
   .hint a{ color:var(--red-deep); }
@@ -167,6 +160,7 @@
     transition:color 150ms ease;
   }
   .dev-credit a:hover{ color:#0a66c2; }
+  .dev-credit a.telegram-link:hover{ color:#229ed9; }
   .dev-credit a svg{ width:13px; height:13px; flex-shrink:0; }
 
   @media (max-width:420px){
@@ -221,6 +215,11 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
         Dagim Aklilu
       </a>
+      <div class="divider"></div>
+      <a href="https://t.me/DAGDEVIO" target="_blank" rel="noopener" class="telegram-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.05 3.51 2.98 10.54c-1.23.49-1.22 1.17-.22 1.48l4.63 1.45 1.79 5.51c.22.6.11.84.75.84.49 0 .7-.22.97-.48l2.32-2.26 4.83 3.57c.89.49 1.53.24 1.75-.83l3.17-14.94c.32-1.31-.5-1.9-1.92-1.37zM8.3 13.1l10.02-6.32c.47-.29.9-.13.55.19L10.4 14.5l-.32 3.42-1.78-4.82z"/></svg>
+        Telegram
+      </a>
     </div>
   </footer>
 </div>
@@ -254,9 +253,12 @@
           </div>
         </div>
         <dl class="detail-grid">
-          <div class="full">
-            <dt>Student name</dt>
-            <dd class="name">${escapeHtml(cert.student_name)}</dd>
+          <div class="full name-row">
+            ${cert.photo ? `<img class="student-photo" src="${cert.photo}" alt="${escapeHtml(cert.student_name)}">` : ''}
+            <div>
+              <dt>Student name</dt>
+              <dd class="name">${escapeHtml(cert.student_name)}</dd>
+            </div>
           </div>
           <div>
             <dt>Department</dt>
